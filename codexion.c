@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 14:13:29 by username          #+#    #+#             */
-/*   Updated: 2026/04/16 20:08:05 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/04/18 22:04:02 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ int	is_digit(char *s)
 	int	i;
 
 	i = 0;
-	if (s[i] == '-' || s[i] == '+')
-	{
-		if (s[i++] == '-')
-			return (0);
-	}
+	if (s[i] == '+')
+		i++;
+	if (!s[i])
+		return (0);
 	while (s[i])
 	{
 		if (!(s[i] >= '0' && s[i] <= '9'))
@@ -44,18 +43,18 @@ int	parse_arguments(char **argv, t_simulation *sim)
 			return (1);
 		i++;
 	}
-	sim->number_coders = atoi(argv[1]);
-	if (sim->number_coders == 0)
+	if (atoi(argv[1]) == 0 || atoi(argv[6] == 0))
 		return (1);
+	sim->number_coders = atoi(argv[1]);
 	sim->burnout_time = atoi(argv[2]);
 	sim->compile_time = atoi(argv[3]);
 	sim->debug_time = atoi(argv[4]);
 	sim->refactor_time = atoi(argv[5]);
-	sim->refactor_time = atoi(argv[6]);
-	sim->refactor_time = atoi(argv[7]);
-	sim->scheduler = argv[8];
-	if (strcmp(sim->scheduler, "edf") && strcmp(sim->scheduler, "fifo"))
+	sim->number_compiles = atoi(argv[6]);
+	sim->dongle_cooldown = atoi(argv[7]);
+	if (strcmp(argv[8], "edf") && strcmp(argv[8], "fifo"))
 		return (1);
+	sim->scheduler = argv[8];
 	return (0);
 }
 
@@ -74,6 +73,9 @@ int	main(int argc, char **argv)
 	}
 	r = parse_arguments(argv, &sim);
 	if (r > 0)
+	{
 		write(2, "error\n", 6);
-	return (1);
+		return (1);
+	}
+	return (0);
 }
