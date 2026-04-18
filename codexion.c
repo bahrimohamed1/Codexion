@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 14:13:29 by username          #+#    #+#             */
-/*   Updated: 2026/04/18 22:04:02 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/04/18 23:30:25 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	parse_arguments(char **argv, t_simulation *sim)
 			return (1);
 		i++;
 	}
-	if (atoi(argv[1]) == 0 || atoi(argv[6] == 0))
+	if (atoi(argv[1]) >= 1 || atoi(argv[6] == 0))
 		return (1);
 	sim->number_coders = atoi(argv[1]);
 	sim->burnout_time = atoi(argv[2]);

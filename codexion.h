@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   codexion.h                                        :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: username <username@student.42tokyo.jp>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/04/16 18:18:52 by username         #+#    #+#              */
-/*   Updated: 2026/04/16 18:27:56 by username        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   codexion.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/16 18:18:52 by username          #+#    #+#             */
+/*   Updated: 2026/04/18 23:30:23 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
+# include <pthread.h>
 
 typedef struct s_simulation
 {
@@ -29,5 +30,20 @@ typedef struct s_simulation
 	int		number_compiles;
 	int		dongle_cooldown;
 }	t_simulation;
+
+typedef struct s_dongle
+{
+	int	id;
+
+}	t_dongle;
+
+typedef struct s_coder
+{
+	int				id;
+	t_simulation	*sim;
+	t_dongle		*left_d;
+	t_dongle		*right_d;
+
+}	t_coder;
 
 #endif
