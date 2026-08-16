@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/18 22:56:37 by username          #+#    #+#             */
-/*   Updated: 2026/04/18 23:30:21 by mbahri           ###   ########.fr       */
+/*   Created: 2026/08/16 04:52:16 by mbahri            #+#    #+#             */
+/*   Updated: 2026/08/16 05:26:15 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <codexion.h>
+#include "codexion.h"
 
-void	init(void)
+long	get_time_ms(void)
 {
-	t_coder		*coders = malloc(sizeof(t_coder) *coders->sim->number_coders);
-	t_dongle	*dongles = malloc(sizeof(t_dongle) *coders->sim->number_coders);
-	int			i = 0;
+	struct timeval	time;
 
-	while (i < coders->sim->number_coders)
-	{
-		coders[i].id = i + 1;
-		i++;
-	}
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
-/*
-array dyal coders
-array dyal dongle
-==> *number_of_coders
-*/
+
+long	get_elapsed_time(long start_time)
+{
+	long	current_time;
+
+	current_time = get_time_ms();
+	return (current_time - start_time);
+}

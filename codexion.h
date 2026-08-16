@@ -5,45 +5,39 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/16 18:18:52 by username          #+#    #+#             */
-/*   Updated: 2026/04/18 23:30:23 by mbahri           ###   ########.fr       */
+/*   Created: 2026/08/15 21:40:28 by mbahri            #+#    #+#             */
+/*   Updated: 2026/08/16 04:51:58 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CODEXION_H
 # define CODEXION_H
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <string.h>
-# include <pthread.h>
+#include <stdio.h>
+#include <limits.h>
+#include <string.h>
+#include <sys/time.h>
 
-typedef struct s_simulation
+typedef enum e_scheduler
 {
-	int		number_coders;
-	int		burnout_time;
-	char	*scheduler;
-	int		compile_time;
-	int		debug_time;
-	int		refactor_time;
-	int		number_compiles;
-	int		dongle_cooldown;
-}	t_simulation;
+	FIFO,
+	EDF
+}	t_scheduler;
 
-typedef struct s_dongle
+typedef struct s_config
 {
-	int	id;
+	int			number_of_coders;
+	long		time_to_burnout;
+	long		time_to_compile;
+	long		time_to_debug;
+	long		time_to_refactor;
+	int			number_of_compiles_required;
+	long		dongle_cooldown;
+	t_scheduler	scheduler;
+}	t_config;
 
-}	t_dongle;
-
-typedef struct s_coder
-{
-	int				id;
-	t_simulation	*sim;
-	t_dongle		*left_d;
-	t_dongle		*right_d;
-
-}	t_coder;
+int	parse_number(char *str, long *value);
+int	parse_scheduler(char *str, t_scheduler *value);
+int	parse_args(int argc, char **argv, t_config *config);
 
 #endif
