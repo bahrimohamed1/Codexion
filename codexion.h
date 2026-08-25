@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:40:28 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/23 17:44:01 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/25 17:35:46 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <string.h>
 # include <sys/time.h>
 # include <pthread.h>
+
+typedef struct s_coder  t_coder;
+typedef struct s_dongle  t_dongle;
 
 typedef enum e_scheduler
 {
@@ -39,13 +42,13 @@ typedef struct s_config
 
 typedef struct s_simulation
 {
-	t_config		*config;
+	t_config		config;
 	long			start_time;
 	int				stop;
 	t_coder			*coders;
 	t_dongle		*dongles;
 	pthread_t		monitor_thread;
-	pthread_mutex_t	state_mutex;	// for considiration
+	pthread_mutex_t	state_mutex;	// to protect stop flag
 	pthread_mutex_t	log_mutex;
 }	t_simulation;
 
@@ -61,11 +64,28 @@ typedef struct s_coder
 	t_simulation	*simulation;
 }	t_coder;
 
+typedef struct  s_request
+{
+    t_coder         *coder;
+    long            deadline;
+    unsigned long   sequence;
+}   t_request;
+
+typedef struct s_heap
+{
+    t_request   **requests;
+    int         size;
+    int         capacity;
+}   t_heap;
+
 typedef struct s_dongle
 {
-	int				id;
 	pthread_mutex_t	mutex;
-
+	pthread_cond_t	condition;
+	t_coder			*owner;
+	long			cooldown_until;
+	t_heap			requests;
+	unsigned long	next_sequence;
 }	t_dongle;
 
 int		parse_number(char *str, long *value);
