@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:40:28 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/25 21:11:54 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/26 02:05:44 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <string.h>
 # include <sys/time.h>
 # include <pthread.h>
+# include <stdlib.h>
 
 typedef struct s_coder	t_coder;
 typedef struct s_dongle	t_dongle;
@@ -93,5 +94,10 @@ int		parse_scheduler(char *str, t_scheduler *value);
 int		parse_args(int argc, char **argv, t_config *config);
 long	get_time_ms(void);
 long	get_elapsed_time(long start_time);
+int		init_heap(t_heap *queue, int capacity);
+void	destroy_heap(t_heap *heap);
+int		init_dongles(t_simulation *sim);
+int		init_one_dongle(t_dongle *dongle, int capacity);
+void	cleanup_dongles(t_simulation *sim, int count);
 
 #endif
