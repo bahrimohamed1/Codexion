@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:40:28 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/26 20:01:16 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/26 22:55:57 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,6 @@ void	cleanup_coders(t_simulation *sim, int count);
 int		init_simulation(t_simulation *sim, t_config *config);
 void	destroy_simulation(t_simulation *sim);
 void	log_state(t_coder *coder, t_state state);
+void	log_burnout(t_coder *coder);
 
 #endif
