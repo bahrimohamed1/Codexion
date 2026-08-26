@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:40:28 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/26 02:05:44 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/26 19:39:52 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,15 @@ typedef struct s_dongle
 	unsigned long	next_sequence;
 }	t_dongle;
 
+typedef enum e_state
+{
+	TAKE_DONGLE,
+	COMPILING,
+	DEBUGGING,
+	REFACTORING,
+	BURNED_OUT
+}	t_state;
+
 int		parse_number(char *str, long *value);
 int		parse_scheduler(char *str, t_scheduler *value);
 int		parse_args(int argc, char **argv, t_config *config);
@@ -99,5 +108,11 @@ void	destroy_heap(t_heap *heap);
 int		init_dongles(t_simulation *sim);
 int		init_one_dongle(t_dongle *dongle, int capacity);
 void	cleanup_dongles(t_simulation *sim, int count);
+int		init_coders(t_simulation *sim);
+int		init_one_coder(t_simulation *sim, int num_coders, int i);
+void	cleanup_coders(t_simulation *sim, int count);
+int		init_simulation(t_simulation *sim, t_config *config);
+void	destroy_simulation(t_simulation *sim);
+void	log_state(t_coder *coder, t_state state);
 
 #endif

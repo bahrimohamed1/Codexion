@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 22:01:13 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/26 02:07:40 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/26 17:14:05 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,25 @@ int	init_simulation(t_simulation *sim, t_config *config)
 		return (0);
 	}
 	if (!init_dongles(sim))
+    {
+    	pthread_mutex_destroy(&sim->log_mutex);
+	    pthread_mutex_destroy(&sim->state_mutex);
 		return (0);
+    }
 	if (!init_coders(sim))
 	{
-		pthread_mutex_destroy(&sim->state_mutex);
+        cleanup_dongles(sim, sim->config.number_of_coders);
 		pthread_mutex_destroy(&sim->log_mutex);
+	    pthread_mutex_destroy(&sim->state_mutex);
 		return (0);
 	}
 	return (1);
 }
 
-int	init_coders(t_simulation *sim)
+void	destroy_simulation(t_simulation *sim)
 {
-	int	i;
-	
-	sim->coders = malloc(sizeof(t_coder) * sim->config.number_of_coders);
-	if (!sim->coders)
-		return (0);
-	i = 0;
-	while (i < sim->config.number_of_coders)
-	{
-		sim->coders[i].compile_count = 0;
-		sim->coders[i].id = i;
-		sim->coders[i].last_compile_start = 0;
-		sim->coders[i].left_dongle = 
-	}
-	
+	cleanup_coders(sim, sim->config.number_of_coders);
+	cleanup_dongles(sim, sim->config.number_of_coders);
+	pthread_mutex_destroy(&sim->log_mutex);
+	pthread_mutex_destroy(&sim->state_mutex);
 }
