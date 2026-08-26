@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 22:01:13 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/26 17:14:05 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/26 21:58:43 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ int	init_simulation(t_simulation *sim, t_config *config)
 		return (0);
 	}
 	if (!init_dongles(sim))
-    {
-    	pthread_mutex_destroy(&sim->log_mutex);
-	    pthread_mutex_destroy(&sim->state_mutex);
+	{
+		pthread_mutex_destroy(&sim->log_mutex);
+		pthread_mutex_destroy(&sim->state_mutex);
 		return (0);
-    }
+	}
 	if (!init_coders(sim))
 	{
-        cleanup_dongles(sim, sim->config.number_of_coders);
+		cleanup_dongles(sim, sim->config.number_of_coders);
 		pthread_mutex_destroy(&sim->log_mutex);
-	    pthread_mutex_destroy(&sim->state_mutex);
+		pthread_mutex_destroy(&sim->state_mutex);
 		return (0);
 	}
 	return (1);

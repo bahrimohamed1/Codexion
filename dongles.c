@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 02:04:53 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/26 16:53:25 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/26 22:02:10 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	init_one_dongle(t_dongle *dongle, int capacity)
 	}
 	if (!init_heap(&dongle->queue, capacity))
 	{
-        pthread_cond_destroy(&dongle->condition);
+		pthread_cond_destroy(&dongle->condition);
 		pthread_mutex_destroy(&dongle->mutex);
 		return (0);
 	}
