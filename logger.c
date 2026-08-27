@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 19:40:09 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/26 23:34:32 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/27 14:43:56 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	log_state(t_coder *coder, t_state state)
 	long			time;
 
 	sim = coder->simulation;
-    pthread_mutex_lock(&sim->log_mutex);
+	pthread_mutex_lock(&sim->log_mutex);
 	pthread_mutex_lock(&sim->state_mutex);
 	if (sim->stop)
 	{
-        pthread_mutex_unlock(&sim->state_mutex);
-        pthread_mutex_unlock(&sim->log_mutex);
+		pthread_mutex_unlock(&sim->state_mutex);
+		pthread_mutex_unlock(&sim->log_mutex);
 		return ;
 	}
 	pthread_mutex_unlock(&sim->state_mutex);

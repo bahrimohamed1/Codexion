@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:40:28 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/26 22:55:57 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/27 19:42:13 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,22 +98,25 @@ typedef enum e_state
 	BURNED_OUT
 }	t_state;
 
-int		parse_number(char *str, long *value);
-int		parse_scheduler(char *str, t_scheduler *value);
-int		parse_args(int argc, char **argv, t_config *config);
-long	get_time_ms(void);
-long	get_elapsed_time(long start_time);
-int		init_heap(t_heap *queue, int capacity);
-void	destroy_heap(t_heap *heap);
-int		init_dongles(t_simulation *sim);
-int		init_one_dongle(t_dongle *dongle, int capacity);
-void	cleanup_dongles(t_simulation *sim, int count);
-int		init_coders(t_simulation *sim);
-int		init_one_coder(t_simulation *sim, int num_coders, int i);
-void	cleanup_coders(t_simulation *sim, int count);
-int		init_simulation(t_simulation *sim, t_config *config);
-void	destroy_simulation(t_simulation *sim);
-void	log_state(t_coder *coder, t_state state);
-void	log_burnout(t_coder *coder);
+int			parse_number(char *str, long *value);
+int			parse_scheduler(char *str, t_scheduler *value);
+int			parse_args(int argc, char **argv, t_config *config);
+long		get_time_ms(void);
+long		get_elapsed_time(long start_time);
+int			init_heap(t_heap *queue, int capacity);
+void		destroy_heap(t_heap *heap);
+int			init_dongles(t_simulation *sim);
+int			init_one_dongle(t_dongle *dongle, int capacity);
+void		cleanup_dongles(t_simulation *sim, int count);
+int			init_coders(t_simulation *sim);
+int			init_one_coder(t_simulation *sim, int num_coders, int i);
+void		cleanup_coders(t_simulation *sim, int count);
+int			init_simulation(t_simulation *sim, t_config *config);
+void		destroy_simulation(t_simulation *sim);
+void		log_state(t_coder *coder, t_state state);
+void		log_burnout(t_coder *coder);
+int			request_priority(t_request *a, t_request *b, t_scheduler scheduler);
+int			heap_push(t_heap *heap, t_request *request, t_scheduler scheduler);
+t_request	*heap_peek(t_heap *heap);
 
 #endif
