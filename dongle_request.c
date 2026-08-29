@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 00:56:25 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/29 02:27:28 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/29 04:02:35 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,31 +52,57 @@ int	heap_remove(t_heap *heap, t_request *request, t_scheduler scheduler)
 	return (1);
 }
 
-int	request_dongle(t_coder *coder, t_dongle *dongle)
+int	enqueue_request(t_coder *coder, t_dongle *dongle,
+		t_request *request)
 {
-	t_request	request;
 	t_scheduler	scheduler;
 
 	scheduler = coder->simulation->config.scheduler;
 	pthread_mutex_lock(&dongle->mutex);
-	prepare_request(coder, dongle, &request);
-	if (!heap_push(&dongle->queue, &request, scheduler))
+	prepare_request(coder, dongle, request);
+	if (!heap_push(&dongle->queue, request, scheduler))
 	{
 		pthread_mutex_unlock(&dongle->mutex);
 		return (0);
 	}
-	while (!simulation_stopped(coder->simulation)
-		&& !request_ready(dongle, &request))
-		wait_for_dongle(dongle, &request);
-	if (simulation_stopped(coder->simulation))
-	{
-		heap_remove(&dongle->queue, &request, scheduler);
-		pthread_mutex_unlock(&dongle->mutex);
-		return (0);
-	}
-	heap_pop(&dongle->queue, scheduler);
-	dongle->owner = coder;
 	pthread_mutex_unlock(&dongle->mutex);
-	log_state(coder, TAKE_DONGLE);
 	return (1);
+}
+
+void	lock_dongle_pair(t_dongle *a, t_dongle *b)
+{
+	if (a == b)
+	{
+		pthread_mutex_lock(&a->mutex);
+		return ;
+	}
+	if (a < b)
+	{
+		pthread_mutex_lock(&a->mutex);
+		pthread_mutex_lock(&b->mutex);
+	}
+	else
+	{
+		pthread_mutex_lock(&b->mutex);
+		pthread_mutex_lock(&a->mutex);
+	}
+}
+
+void	unlock_dongle_pair(t_dongle *a, t_dongle *b)
+{
+	if (a == b)
+	{
+		pthread_mutex_unlock(&a->mutex);
+		return ;
+	}
+	if (a < b)
+	{
+		pthread_mutex_unlock(&b->mutex);
+		pthread_mutex_unlock(&a->mutex);
+	}
+	else
+	{
+		pthread_mutex_unlock(&a->mutex);
+		pthread_mutex_unlock(&b->mutex);
+	}
 }

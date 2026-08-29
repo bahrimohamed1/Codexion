@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:40:28 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/29 02:27:51 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/29 04:03:46 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,13 +125,14 @@ int			heap_remove(t_heap *heap, t_request *request,
 void		heap_swap(t_request **a, t_request **b);
 void		sift_down(t_heap *heap, int index, t_scheduler scheduler);
 void		sift_up(t_heap *heap, int index, t_scheduler scheduler);
-int			request_dongle(t_coder *coder, t_dongle *dongle);
 void		ms_to_timespec(long ms, struct timespec *ts);
 int			simulation_stopped(t_simulation *sim);
 int			simulation_stopped(t_simulation *sim);
 void		prepare_request(t_coder *coder, t_dongle *dongle,
 				t_request *request);
-int			request_ready(t_dongle *dongle, t_request *request);
-void		wait_for_dongle(t_dongle *dongle, t_request *request);
+int			enqueue_request(t_coder *coder, t_dongle *dongle,
+				t_request *request);
+void		lock_dongle_pair(t_dongle *a, t_dongle *b);
+void		unlock_dongle_pair(t_dongle *a, t_dongle *b);
 
 #endif
