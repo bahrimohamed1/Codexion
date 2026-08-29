@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/16 04:52:16 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/16 05:26:15 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/28 05:07:04 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,10 @@ long	get_elapsed_time(long start_time)
 
 	current_time = get_time_ms();
 	return (current_time - start_time);
+}
+
+void	ms_to_timespec(long ms, struct timespec *ts)
+{
+	ts->tv_sec = ms / 1000;
+	ts->tv_nsec = (ms % 1000) * 1000000;
 }
