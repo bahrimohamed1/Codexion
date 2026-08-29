@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:40:28 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/27 19:42:13 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/29 02:27:51 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <stdlib.h>
+# include <time.h>
 
 typedef struct s_coder	t_coder;
 typedef struct s_dongle	t_dongle;
@@ -118,5 +119,19 @@ void		log_burnout(t_coder *coder);
 int			request_priority(t_request *a, t_request *b, t_scheduler scheduler);
 int			heap_push(t_heap *heap, t_request *request, t_scheduler scheduler);
 t_request	*heap_peek(t_heap *heap);
+t_request	*heap_pop(t_heap *heap, t_scheduler scheduler);
+int			heap_remove(t_heap *heap, t_request *request,
+				t_scheduler scheduler);
+void		heap_swap(t_request **a, t_request **b);
+void		sift_down(t_heap *heap, int index, t_scheduler scheduler);
+void		sift_up(t_heap *heap, int index, t_scheduler scheduler);
+int			request_dongle(t_coder *coder, t_dongle *dongle);
+void		ms_to_timespec(long ms, struct timespec *ts);
+int			simulation_stopped(t_simulation *sim);
+int			simulation_stopped(t_simulation *sim);
+void		prepare_request(t_coder *coder, t_dongle *dongle,
+				t_request *request);
+int			request_ready(t_dongle *dongle, t_request *request);
+void		wait_for_dongle(t_dongle *dongle, t_request *request);
 
 #endif
