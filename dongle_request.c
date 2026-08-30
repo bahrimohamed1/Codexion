@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 00:56:25 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/29 04:02:35 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/29 07:15:58 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,27 @@ int	heap_remove(t_heap *heap, t_request *request, t_scheduler scheduler)
 	return (1);
 }
 
-int	enqueue_request(t_coder *coder, t_dongle *dongle,
-		t_request *request)
+int	enqueue_pair(t_coder *coder, t_request *left_req,
+		t_request *right_req)
 {
+	t_dongle	*left;
+	t_dongle	*right;
 	t_scheduler	scheduler;
 
+	left = coder->left_dongle;
+	right = coder->right_dongle;
 	scheduler = coder->simulation->config.scheduler;
-	pthread_mutex_lock(&dongle->mutex);
-	prepare_request(coder, dongle, request);
-	if (!heap_push(&dongle->queue, request, scheduler))
+	lock_dongle_pair(left, right);
+	prepare_request(coder, left, left_req);
+	prepare_request(coder, right, right_req);
+	if (!heap_push(&left->queue, left_req, scheduler))
+		return (unlock_dongle_pair(left, right), 0);
+	if (!heap_push(&right->queue, right_req, scheduler))
 	{
-		pthread_mutex_unlock(&dongle->mutex);
-		return (0);
+		heap_remove(&left->queue, left_req, scheduler);
+		return (unlock_dongle_pair(left, right), 0);
 	}
-	pthread_mutex_unlock(&dongle->mutex);
+	unlock_dongle_pair(left, right);
 	return (1);
 }
 
