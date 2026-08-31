@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:40:28 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/31 03:42:47 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/31 03:54:46 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,5 +138,6 @@ void		remove_pair_requests(t_coder *coder, t_request *left_req,
 int			acquire_dongles(t_coder *coder);
 void		log_dongle_pair(t_coder *coder);
 void		release_dongles(t_coder *coder);
+void		sim_sleep(t_simulation *sim, long duration);
 
 #endif
