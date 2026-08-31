@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 19:40:09 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/27 14:43:56 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/31 01:05:03 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,22 @@ char	*state_message(t_state state)
 	if (state == BURNED_OUT)
 		return ("burned out");
 	return ("UNKNOWN");
+}
+
+void	log_dongle_pair(t_coder *coder)
+{
+	t_simulation	*sim;
+	long			timestamp;
+
+	sim = coder->simulation;
+	pthread_mutex_lock(&sim->log_mutex);
+	pthread_mutex_lock(&sim->state_mutex);
+	if (sim->stop)
+		return (pthread_mutex_unlock(&sim->state_mutex),
+			pthread_mutex_unlock(&sim->log_mutex));
+	pthread_mutex_unlock(&sim->state_mutex);
+	timestamp = get_elapsed_time(sim->start_time);
+	printf("%ld %d has taken a dongle\n", timestamp, coder->id);
+	printf("%ld %d has taken a dongle\n", timestamp, coder->id);
+	pthread_mutex_unlock(&sim->log_mutex);
 }
