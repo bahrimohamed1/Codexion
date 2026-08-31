@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 16:41:08 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/26 17:03:01 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/31 03:42:20 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	init_coders(t_simulation *sim)
 	return (1);
 }
 
-int	init_one_coder(t_simulation *sim, int num_coders, int i)
+static int	init_one_coder(t_simulation *sim, int num_coders, int i)
 {
 	if (pthread_mutex_init(&sim->coders[i].state_mutex, NULL) != 0)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:40:28 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/31 01:10:31 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/31 03:42:47 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_simulation
 	t_dongle		*dongles;
 	pthread_t		monitor_thread;
 	pthread_mutex_t	state_mutex;
+	pthread_cond_t	stop_condition;
 	pthread_mutex_t	log_mutex;
 }	t_simulation;
 
@@ -110,7 +111,6 @@ int			init_dongles(t_simulation *sim);
 int			init_one_dongle(t_dongle *dongle, int capacity);
 void		cleanup_dongles(t_simulation *sim, int count);
 int			init_coders(t_simulation *sim);
-int			init_one_coder(t_simulation *sim, int num_coders, int i);
 void		cleanup_coders(t_simulation *sim, int count);
 int			init_simulation(t_simulation *sim, t_config *config);
 void		destroy_simulation(t_simulation *sim);
