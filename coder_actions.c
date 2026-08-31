@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 03:54:05 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/31 06:47:22 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/31 09:06:17 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,10 @@ void	*coder_routine(void *arg)
 	wait_for_start(coder->simulation);
 	if (simulation_stopped(coder->simulation))
 		return (NULL);
+	if (coder->id % 2 == 0
+			|| (coder->simulation->config.number_of_coders % 2 != 0
+			&& coder->id == coder->simulation->config.number_of_coders))
+		usleep(1000);
 	while (!simulation_stopped(coder->simulation))
 	{
 		if (!acquire_dongles(coder))

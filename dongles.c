@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 02:04:53 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/26 22:02:10 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/31 08:33:52 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	init_one_dongle(t_dongle *dongle, int capacity)
 		return (0);
 	}
 	dongle->owner = NULL;
-	dongle->next_sequence = 0;
 	dongle->cooldown_until = 0;
 	return (1);
 }
