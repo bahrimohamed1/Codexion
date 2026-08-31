@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:40:28 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/31 03:54:46 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/31 06:57:41 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <pthread.h>
 # include <stdlib.h>
 # include <time.h>
+# include <unistd.h>
 
 typedef struct s_coder	t_coder;
 typedef struct s_dongle	t_dongle;
@@ -53,6 +54,7 @@ typedef struct s_simulation
 	pthread_mutex_t	state_mutex;
 	pthread_cond_t	stop_condition;
 	pthread_mutex_t	log_mutex;
+	int				started;
 }	t_simulation;
 
 typedef struct s_coder
@@ -115,6 +117,7 @@ void		cleanup_coders(t_simulation *sim, int count);
 int			init_simulation(t_simulation *sim, t_config *config);
 void		destroy_simulation(t_simulation *sim);
 void		log_state(t_coder *coder, t_state state);
+char		*state_message(t_state state);
 void		log_burnout(t_coder *coder);
 int			request_priority(t_request *a, t_request *b, t_scheduler scheduler);
 int			heap_push(t_heap *heap, t_request *request, t_scheduler scheduler);
@@ -139,5 +142,9 @@ int			acquire_dongles(t_coder *coder);
 void		log_dongle_pair(t_coder *coder);
 void		release_dongles(t_coder *coder);
 void		sim_sleep(t_simulation *sim, long duration);
+void		*monitor_routine(void *arg);
+void		*coder_routine(void *arg);
+void		wait_for_start(t_simulation *sim);
+int			start_simulation(t_simulation *sim);
 
 #endif

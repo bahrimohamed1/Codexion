@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 19:40:09 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/31 01:05:03 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/31 07:00:16 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,11 @@ void	log_dongle_pair(t_coder *coder)
 	pthread_mutex_lock(&sim->log_mutex);
 	pthread_mutex_lock(&sim->state_mutex);
 	if (sim->stop)
-		return (pthread_mutex_unlock(&sim->state_mutex),
-			pthread_mutex_unlock(&sim->log_mutex));
+	{
+		pthread_mutex_unlock(&sim->state_mutex);
+		pthread_mutex_unlock(&sim->log_mutex);
+		return ;
+	}
 	pthread_mutex_unlock(&sim->state_mutex);
 	timestamp = get_elapsed_time(sim->start_time);
 	printf("%ld %d has taken a dongle\n", timestamp, coder->id);

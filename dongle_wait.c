@@ -6,21 +6,11 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 02:20:57 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/31 00:50:36 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/31 07:02:44 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-
-int	simulation_stopped(t_simulation *sim)
-{
-	int	stopped;
-
-	pthread_mutex_lock(&sim->state_mutex);
-	stopped = sim->stop;
-	pthread_mutex_unlock(&sim->state_mutex);
-	return (stopped);
-}
 
 void	prepare_request(t_coder *coder, t_dongle *dongle,
 	t_request	*request)

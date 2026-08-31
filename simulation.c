@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 22:01:13 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/31 03:39:25 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/31 06:45:01 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	init_simulation(t_simulation *sim, t_config *config)
 	sim->config = *config;
 	sim->stop = 0;
 	sim->start_time = 0;
+	sim->started = 0;
 	if (pthread_mutex_init(&sim->state_mutex, NULL) != 0)
 		return (0);
 	if (pthread_cond_init(&sim->stop_condition, NULL) != 0)

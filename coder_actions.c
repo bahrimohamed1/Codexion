@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 03:54:05 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/31 04:48:57 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/31 06:47:22 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,39 @@ int	refactor_phase(t_coder *coder)
 	if (simulation_stopped(sim))
 		return (0);
 	return (1);
+}
+
+int	coder_finished(t_coder *coder)
+{
+	int	finished;
+
+	pthread_mutex_lock(&coder->state_mutex);
+	finished = (coder->compile_count
+			>= coder->simulation->config.number_of_compiles_required);
+	pthread_mutex_unlock(&coder->state_mutex);
+	return (finished);
+}
+
+void	*coder_routine(void *arg)
+{
+	t_coder	*coder;
+
+	coder = (t_coder *) arg;
+	wait_for_start(coder->simulation);
+	if (simulation_stopped(coder->simulation))
+		return (NULL);
+	while (!simulation_stopped(coder->simulation))
+	{
+		if (!acquire_dongles(coder))
+			break ;
+		if (!compile_phase(coder))
+			break ;
+		if (!debug_phase(coder))
+			break ;
+		if (!refactor_phase(coder))
+			break ;
+		if (coder_finished(coder))
+			break ;
+	}
+	return (NULL);
 }
