@@ -7,7 +7,7 @@ SRCS = main.c \
 	parser.c \
 	time.c \
 	simulation.c \
-	simulation.run.c \
+	simulation_run.c \
 	coders.c \
 	coder_actions.c \
 	dongles.c \
