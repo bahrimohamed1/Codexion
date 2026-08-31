@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:40:28 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/29 07:17:22 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/31 01:10:31 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,10 @@ int			enqueue_pair(t_coder *coder, t_request *left_req,
 				t_request *right_req);
 void		lock_dongle_pair(t_dongle *a, t_dongle *b);
 void		unlock_dongle_pair(t_dongle *a, t_dongle *b);
+void		remove_pair_requests(t_coder *coder, t_request *left_req,
+				t_request *right_req);
+int			acquire_dongles(t_coder *coder);
+void		log_dongle_pair(t_coder *coder);
+void		release_dongles(t_coder *coder);
 
 #endif
