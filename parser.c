@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/16 03:04:15 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/16 04:23:17 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/09/01 00:32:06 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	parse_args(int argc, char **argv, t_config *config)
 		return (0);
 	if (!parse_number(argv[6], &value))
 		return (0);
-	if (value > INT_MAX)
+	if (value > INT_MAX || value <= 0)
 		return (0);
 	config->number_of_compiles_required = (int)value;
 	if (!parse_number(argv[7], &config->dongle_cooldown))
