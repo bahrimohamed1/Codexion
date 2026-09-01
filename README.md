@@ -232,8 +232,6 @@ Resources useful for this project include:
 AI tools were used as a discussion and review aid during development. They were used to:
 
 - discuss concurrency architecture and synchronization choices;
-- reason about mutex ordering, condition variables, shutdown behavior, and request lifetime;
 - suggest test scenarios and help interpret Helgrind/DRD results;
-- review code organization for 42 Norm constraints;
 
 The implementation was developed and tested as part of the project, with concurrency behavior validated through runtime tests and thread-analysis tools.
