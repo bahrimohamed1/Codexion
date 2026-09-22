@@ -6,14 +6,14 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 02:20:57 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/31 07:02:44 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/31 08:37:20 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void	prepare_request(t_coder *coder, t_dongle *dongle,
-	t_request	*request)
+void	prepare_request(t_coder *coder, t_request *request,
+		unsigned long sequence)
 {
 	long	time_to_burnout;
 
@@ -22,7 +22,7 @@ void	prepare_request(t_coder *coder, t_dongle *dongle,
 	pthread_mutex_lock(&coder->state_mutex);
 	request->deadline = coder->last_compile_start + time_to_burnout;
 	pthread_mutex_unlock(&coder->state_mutex);
-	request->sequence = dongle->next_sequence++;
+	request->sequence = sequence;
 }
 
 void	remove_pair_requests(t_coder *coder, t_request *left_req,

@@ -7,7 +7,7 @@ SRCS = main.c \
 	parser.c \
 	time.c \
 	simulation.c \
-	simulation.run.c \
+	simulation_run.c \
 	coders.c \
 	coder_actions.c \
 	dongles.c \
@@ -26,7 +26,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(SRCS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean:
 	rm -rf $(OBJS)

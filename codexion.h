@@ -6,7 +6,7 @@
 /*   By: mbahri <mbahri@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 21:40:28 by mbahri            #+#    #+#             */
-/*   Updated: 2026/08/31 06:57:41 by mbahri           ###   ########.fr       */
+/*   Updated: 2026/08/31 08:38:55 by mbahri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_simulation
 	pthread_cond_t	stop_condition;
 	pthread_mutex_t	log_mutex;
 	int				started;
+	unsigned long	next_sequence;
 }	t_simulation;
 
 typedef struct s_coder
@@ -90,7 +91,6 @@ typedef struct s_dongle
 	t_coder			*owner;
 	long			cooldown_until;
 	t_heap			queue;
-	unsigned long	next_sequence;
 }	t_dongle;
 
 typedef enum e_state
@@ -130,8 +130,8 @@ void		sift_down(t_heap *heap, int index, t_scheduler scheduler);
 void		sift_up(t_heap *heap, int index, t_scheduler scheduler);
 void		ms_to_timespec(long ms, struct timespec *ts);
 int			simulation_stopped(t_simulation *sim);
-void		prepare_request(t_coder *coder, t_dongle *dongle,
-				t_request *request);
+void		prepare_request(t_coder *coder, t_request *request,
+				unsigned long sequence);
 int			enqueue_pair(t_coder *coder, t_request *left_req,
 				t_request *right_req);
 void		lock_dongle_pair(t_dongle *a, t_dongle *b);
